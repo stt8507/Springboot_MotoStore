@@ -97,4 +97,14 @@ public class HelloController {
 		ModelAndView mView = findAll();
 		return mView;
     }
+	
+	@RequestMapping("/show")
+    public ModelAndView showAll(){
+		ModelAndView mView = new ModelAndView();
+		String sql = " SELECT * FROM MT01 ";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		mView.addObject("list", list);
+		mView.setViewName("show");
+		return mView;
+    }
 }
