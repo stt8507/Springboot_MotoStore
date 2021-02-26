@@ -57,6 +57,7 @@
 		var file_data = $(obj).prop('files')[0];
 		var file_name = file_data.name;
 		$(obj).parent().find('span').text(file_name);
+		$(obj).next().val(file_name);
 	}
 </script>
 </head>
@@ -118,7 +119,7 @@
 						</c:choose>
 						</span>
 					</label>
-					<input type="file" onchange="fileChange(this);" name="T01_PIC_${varStatus.count}" style="display:none"/>
+					<input type="file" onchange="fileChange(this);" id="T01_PIC_${varStatus.count}" name="T01_PIC_${varStatus.count}" style="display:none"/>
 					<input type="hidden" value="${Item.T01_PICNAME}" name="T01_PICNAME_${varStatus.count}">
 				</td>
 				
