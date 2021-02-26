@@ -20,12 +20,33 @@
 <body>
 	<div class="wrapper">
 		<h1>雞雞機車行</h1>
-		<nav class="navbar navbar-expand-sm bg-light">
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/">零件管理</a></li>
-			<li class="nav-item"><a class="nav-link" href="/show">展示</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
-		</ul>
+		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#"> <img
+			alt="eHappy" src="/image/bs_logo.png" />
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">首頁</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">關於</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">登出</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">產品資料</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/">修改資料</a> <a
+							class="dropdown-item" href="/show">產品總覽</a>
+					</div></li>
+			</ul>
+
+			<form class="form-inline">
+				<input type="text" class="form-control mr-1" placeholder="輸入關鍵字" />
+				<button class="btn btn-outlight" type="submit">搜尋</button>
+			</form>
+		</div>
 		</nav>
 		<br> <br>
 		<form name="index" method="post" action="/">
@@ -62,8 +83,7 @@
 			</div>
 		</div>    
     </div>
-     -->
-    </footer>
+     --> </footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

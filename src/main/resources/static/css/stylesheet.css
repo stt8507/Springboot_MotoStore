@@ -21,6 +21,7 @@ body {
   grid-template-rows: 1fr auto; /*將上半部設置為一個單位，剩下的部分設為自動高度*/
 }
 footer {
+  margin: 25px;
   text-align: center;
   grid-row-start: 2;/*欄位從第二條橫線開始*/
   grid-row-end: 3;/*欄位從第三條橫線結束*/
