@@ -9,6 +9,8 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!--Custom CSS-->
+<link rel="stylesheet" href="/css/stylesheet.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <title>雞雞機車行</title>
 <script>
@@ -16,39 +18,52 @@
 </script>
 </head>
 <body>
-	<h1>雞雞機車行</h1>
-	<nav class="navbar navbar-expand-sm bg-light">
-	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" href="/">零件管理</a></li>
-		<li class="nav-item"><a class="nav-link" href="/show">展示</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
-	</ul>
-	</nav>
-	<br>
-	<br>
-	<form name="index" method="post" action="/">
-		<h1 align="center">Show Detail</h1>
-		<div class="container">
-			<table align="center" class="table table-bordered">
-				<thead>
-					<tr>
-						<th>商品名</th>
-						<th>存貨</th>
-						<th>金額</th>
-						<th>檔案</th>
-					</tr>
-				</thead>
-				<c:forEach items="${list}" var="Item" varStatus="varStatus">
-					<tr>
-						<td>${Item.T02_NAME}</td>
-						<td>${Item.T02_STORE}</td>
-						<td>${Item.T02_PRICE}</td>
-						<td>${Item.T02_PICNAME}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-	</form>
+	<div class="wrapper">
+		<h1>雞雞機車行</h1>
+		<nav class="navbar navbar-expand-sm bg-light">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/">零件管理</a></li>
+			<li class="nav-item"><a class="nav-link" href="/show">展示</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
+		</ul>
+		</nav>
+		<br> <br>
+		<form name="index" method="post" action="/">
+			<h1 align="center">Show Detail</h1>
+			<div class="container">
+				<table align="center" class="table table-bordered">
+					<thead>
+						<tr>
+							<th>商品名</th>
+							<th>存貨</th>
+							<th>金額</th>
+							<th>檔案</th>
+						</tr>
+					</thead>
+					<c:forEach items="${list}" var="Item" varStatus="varStatus">
+						<tr>
+							<td>${Item.T02_NAME}</td>
+							<td>${Item.T02_STORE}</td>
+							<td>${Item.T02_PRICE}</td>
+							<td>${Item.T02_PICNAME}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</form>
+	</div>
+	<footer class="footer">
+	<p>Copyright © WebDesigneer 網頁設計</p>
+	<!-- 
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12" style="text-align:center;">
+				<p>Copyright © WebDesigneer 網頁設計</p>
+			</div>
+		</div>    
+    </div>
+     -->
+    </footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

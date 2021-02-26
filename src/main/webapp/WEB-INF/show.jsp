@@ -23,40 +23,44 @@
 </script>
 </head>
 <body>
-	<h1>雞雞機車行</h1>
-	<nav class="navbar navbar-expand-sm bg-light">
-	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" href="/">零件管理</a></li>
-		<li class="nav-item"><a class="nav-link" href="/show">展示</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
-	</ul>
-	</nav>
-	<br>
-	<br>
-	<form name="index" method="post" action="/">
-		<h1 align="center">Show Goods</h1>
-		<div class="container">
-			<div class="row">
-				<c:forEach items="${list}" var="Item" varStatus="varStatus">
-					<div class="card col-sm-3" onclick="goDetail(this);">
-						<input type="hidden" name="T01_ID" value="${Item.T01_ID}">
-						<img class="card-img-top" src="/image/${Item.T01_PICNAME}"
-							alt="Card image" style="width: 100%">
-						<div class="card-body">
-							<h4 class="card-title">${Item.T01_NAME}</h4>
+	<div class="wrapper">
+		<h1>雞雞機車行</h1>
+		<nav class="navbar navbar-expand-sm bg-light">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/">零件管理</a></li>
+			<li class="nav-item"><a class="nav-link" href="/show">展示</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
+		</ul>
+		</nav>
+		<br> <br>
+		<form name="index" method="post" action="/">
+			<h1 align="center">Show Goods</h1>
+			<div class="container">
+				<div class="row">
+					<c:forEach items="${list}" var="Item" varStatus="varStatus">
+						<div class="card col-sm-3" onclick="goDetail(this);">
+							<input type="hidden" name="T01_ID" value="${Item.T01_ID}">
+							<img class="card-img-top" src="/image/${Item.T01_PICNAME}"
+								alt="Card image" style="width: 100%">
+							<div class="card-body">
+								<h4 class="card-title">${Item.T01_NAME}</h4>
 
-							<p class="card-text">
-								品名：${Item.T01_NAME}<br /> 存貨：${Item.T01_STORE}<br />
-								金額：${Item.T01_PRICE}
-							</p>
+								<p class="card-text">
+									品名：${Item.T01_NAME}<br /> 存貨：${Item.T01_STORE}<br />
+									金額：${Item.T01_PRICE}
+								</p>
+							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
-		</div>
-		<!-- Hidden Column -->
-		<input type="hidden" name="T01_CHOSENID">
-	</form>
+			<!-- Hidden Column -->
+			<input type="hidden" name="T01_CHOSENID">
+		</form>
+	</div>
+	<footer>
+	<p>WebDesigneer 網頁設計</p>
+	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
