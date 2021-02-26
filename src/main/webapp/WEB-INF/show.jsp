@@ -34,20 +34,19 @@
 	<br>
 	<br>
 	<form name="index" method="post" action="/">
-	<h1 align="center">Show Goods</h1>
+		<h1 align="center">Show Goods</h1>
 		<div class="container">
 			<div class="row">
 				<c:forEach items="${list}" var="Item" varStatus="varStatus">
 					<div class="card col-sm-3" onclick="goDetail(this);">
 						<input type="hidden" name="T01_ID" value="${Item.T01_ID}">
-						<img class="card-img-top" src="/image/${Item.T01_PICNAME}" alt="Card image"
-							style="width: 100%">
+						<img class="card-img-top" src="/image/${Item.T01_PICNAME}"
+							alt="Card image" style="width: 100%">
 						<div class="card-body">
 							<h4 class="card-title">${Item.T01_NAME}</h4>
 
 							<p class="card-text">
-								品名：${Item.T01_NAME}<br/> 
-								存貨：${Item.T01_STORE}<br/>
+								品名：${Item.T01_NAME}<br /> 存貨：${Item.T01_STORE}<br />
 								金額：${Item.T01_PRICE}
 							</p>
 						</div>
@@ -57,13 +56,14 @@
 		</div>
 		<!-- Hidden Column -->
 		<input type="hidden" name="T01_CHOSENID">
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	</form>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
