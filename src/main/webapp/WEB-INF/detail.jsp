@@ -42,8 +42,8 @@
 					</div></li>
 			</ul>
 
-			<form class="form-inline">
-				<input type="text" class="form-control mr-1" placeholder="輸入關鍵字" />
+			<form class="form-inline" action="/search">
+				<input type="text" name="name" class="form-control mr-1" placeholder="輸入關鍵字" />
 				<button class="btn btn-outlight" type="submit">搜尋</button>
 			</form>
 		</div>
@@ -52,6 +52,10 @@
 		<form name="index" method="post" action="/">
 			<h1 align="center">Show Detail</h1>
 			<div class="container">
+			<div class="container">
+    			<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%"> 
+			</div>
+			<br>
 				<table align="center" class="table table-bordered">
 					<thead>
 						<tr>
@@ -75,15 +79,7 @@
 	</div>
 	<footer class="footer">
 	<p>Copyright © WebDesigneer 網頁設計</p>
-	<!-- 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12" style="text-align:center;">
-				<p>Copyright © WebDesigneer 網頁設計</p>
-			</div>
-		</div>    
-    </div>
-     --> </footer>
+	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

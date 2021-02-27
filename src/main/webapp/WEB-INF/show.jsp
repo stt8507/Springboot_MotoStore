@@ -47,8 +47,8 @@
 					</div></li>
 			</ul>
 
-			<form class="form-inline">
-				<input type="text" class="form-control mr-1" placeholder="輸入關鍵字" />
+			<form class="form-inline" action="/search">
+				<input type="text" name="name" class="form-control mr-1" placeholder="輸入關鍵字" />
 				<button class="btn btn-outlight" type="submit">搜尋</button>
 			</form>
 		</div>

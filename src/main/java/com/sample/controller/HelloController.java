@@ -42,7 +42,7 @@ public class HelloController {
 
 	@RequestMapping("/search")
 	public ModelAndView findByName(HttpServletRequest request) {
-		String name = request.getParameter("name");
+		String name = request.getParameter("searchName");
 		ModelAndView mView = new ModelAndView();
 		String sql = " SELECT * FROM MT01 WHERE T01_NAME='" + name + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
@@ -115,7 +115,14 @@ public class HelloController {
 			if ("Y".equals(selchk)) {
 				String id = request.getParameter("T01_ID_" + i);
 				String picName = request.getParameter("T01_PICNAME_" + i);
-				delePic(picName);
+				
+				String sqlRepeatPicName = " SELECT COUNT(*) AS CNT FROM MT01 " +
+				" WHERE T01_ID <> '"+ id + "' AND T01_PICNAME = '"+ picName +"' ";
+				int reResult = (Integer) jdbcTemplate.queryForObject(sqlRepeatPicName, Integer.class);
+				if(reResult == 0) {
+					delePic(picName);
+				}
+				
 				String sql = " DELETE FROM MT01 WHERE T01_ID='" + id + "' ";
 				jdbcTemplate.update(sql);
 				System.out.println(sql);
@@ -140,8 +147,13 @@ public class HelloController {
 	public ModelAndView showDetail(HttpServletRequest request) {
 		String t01id = request.getParameter("T01_CHOSENID");
 		ModelAndView mView = new ModelAndView();
-		String sql = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID ";
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		String sqlT02 = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID ";
+		System.out.println(sqlT02);
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlT02);
+		String sqlT01 = " SELECT T01_PICNAME FROM MT01 WHERE T01_ID = '"+ t01id +"' ";
+		System.out.println(sqlT01);
+		String t01_picName = (String) jdbcTemplate.queryForObject(sqlT01, String.class);
+		mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
 		mView.addObject("list", list);
 		mView.setViewName("detail");
 		return mView;

@@ -90,8 +90,8 @@
 					</div></li>
 			</ul>
 
-			<form class="form-inline">
-				<input type="text" class="form-control mr-1" placeholder="輸入關鍵字" />
+			<form class="form-inline" action="/search">
+				<input type="text" name="name" class="form-control mr-1" placeholder="輸入關鍵字" />
 				<button class="btn btn-outlight" type="submit">搜尋</button>
 			</form>
 		</div>
@@ -99,20 +99,27 @@
 		<br> <br>
 		<form name="index" method="post" enctype="multipart/form-data"
 			action="/">
-			<div align="center">
-				商品名：<input type="text" name="name" required /> 金額：<input
-					type="number" name="price" maxlength="5" /> 存貨數：<input
-					type="number" name="store" /> 檔案：<input type="file" name="file" />
+			<div align="center" class="container from-group">
+			<div class="row">
+				<span class="col-sm-4"></span>
+				<span class="input-group col-sm-5" >
+      				<span class="input-group-prepend">
+        			<span class="input-group-text" >商品名：</span>
+        			<input type="text" class="form-control" name="searchName">
+      				</span>
+      			</span>
+      			<span class="col-sm-3">
+      				<button type="button" class="btn btn-secondary" onclick="goUpdate()">修改</button>
+					<button type="button" class="btn btn-dark" onclick="goDelete()">刪除</button>
+					<button type="button" class="btn btn-success" onclick="goSearch()">查詢</button>
+      			</span>
+      		</div>
 			</div>
 			<br />
-			<div align="center">
-				<button type="button" class="btn btn-primary" onclick="goInsert()">新增</button>
-				<button type="button" class="btn btn-secondary" onclick="goUpdate()">修改</button>
-				<button type="button" class="btn btn-dark" onclick="goDelete()">刪除</button>
-				<button type="button" class="btn btn-success" onclick="goSearch()">查詢</button>
-			</div>
+			
 			<br />
-			<table align="center">
+			<div class="container">
+			<table align="center" class="table table-bordered">
 				<tr>
 					<th><input type="checkbox" name="selAll" value="N"
 						onclick="selectAll(this);"></th>
@@ -156,6 +163,31 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<div align="center" class="row">
+				<div class="input-group col-sm-12 " >
+      				<div class="input-group-prepend">
+        			<span class="input-group-text" >商品名：</span>
+        			<input type="text" class="form-control" name="name" required />
+      
+        			<span class="input-group-text">金額：</span>
+        			<input type="number" class="form-control" name="price" maxlength="5" />
+        		
+        			<span class="input-group-text">存貨數：</span>
+        			<input type="number" class="form-control" name="store" />
+        		
+        			<span class="input-group-text">檔案：</span>
+        			<input type="file" class="form-control" name="file" />
+        			</div>
+  					<textarea class="form-control" rows="5" name="comment" placeholder="Comment..."></textarea>
+      			</div>
+      		</div>
+      		<br>
+      		<div class="row">
+      			<span class="col-sm-11"></span>
+      			<span class="input-group col-sm-1">
+      				<button type="button" class="btn btn-primary" onclick="goInsert()">新增</button>
+      			</span>
+			</div>
 		</form>
 	</div>
 	<footer>
