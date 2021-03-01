@@ -52,9 +52,12 @@
 		<form name="index" method="post" action="/">
 			<h1 align="center">Show Detail</h1>
 			<div class="container">
-			<div class="container">
     			<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%"> 
+    			<br/>
+    			<p align="center" style="font-size: 25px">${T01_COMMENT}</p>
 			</div>
+			
+			<div class="container">
 			<br>
 				<table align="center" class="table table-bordered">
 					<thead>

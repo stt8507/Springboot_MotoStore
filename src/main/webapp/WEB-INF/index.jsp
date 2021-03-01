@@ -63,14 +63,34 @@
 		$(obj).parent().find('span').text(file_name);
 		$(obj).next().val(file_name);
 	}
+
+	function Cmentcli(obj){
+		var objInput = $(obj).find('[name ^= T01_COMMENT]');
+		var objSpan = $(obj).find('span');
+		var valBefore = $(objInput).val();
+		var valAft = prompt('請輸入產品介紹',valBefore);
+		if(valAft != null){
+			$(objInput).val(valAft);
+			$(objSpan).text(valAft);
+		}
+	}
+	/*
+	function moveData(obj){
+		let store = $(obj).find('[name ^= T01_STORE]').val();
+		let name = $(obj).find('[name ^= T01_NAME]').val();
+		let price = $(obj).find('[name ^= T01_PRICE]').val();
+		$(':input[name=name]').val(name);
+		$(':input[name=price]').val(price);
+		$(':input[name=store]').val(store);
+	}*/
 </script>
 </head>
 <body>
 	<div class="wrapper">
 		<h1>雞雞機車行</h1>
 		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#"> <img
-			alt="eHappy" src="/image/bs_logo.png" />
+		<a class="navbar-brand" href="#"> 
+			<img alt="eHappy" src="/image/bs_logo.png" />
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navContent">
@@ -78,20 +98,22 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">首頁</a>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">首頁</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">關於</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">登出</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">產品資料</a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">產品資料</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/">修改資料</a> <a
-							class="dropdown-item" href="/show">產品總覽</a>
-					</div></li>
+						<a class="dropdown-item" href="/">修改資料</a> 
+						<a class="dropdown-item" href="/show">產品總覽</a>
+					</div>
+				</li>
 			</ul>
 
 			<form class="form-inline" action="/search">
-				<input type="text" name="name" class="form-control mr-1" placeholder="輸入關鍵字" />
+				<input type="text" name="SearchWebname" class="form-control mr-1" placeholder="輸入關鍵字" />
 				<button class="btn btn-outlight" type="submit">搜尋</button>
 			</form>
 		</div>
@@ -119,7 +141,8 @@
 			
 			<br />
 			<div class="container">
-			<table align="center" class="table table-bordered">
+			<table class="table table-bordered">
+				<thead>
 				<tr>
 					<th><input type="checkbox" name="selAll" value="N"
 						onclick="selectAll(this);"></th>
@@ -127,7 +150,10 @@
 					<th>存貨</th>
 					<th>金額</th>
 					<th>檔案</th>
+					<th>評論</th>
 				</tr>
+				</thead>
+				<tbody>
 				<c:if test="${list=='[]'}">
 					<tr>
 						<td>No data!
@@ -139,29 +165,34 @@
 						<td><input type="checkbox" name="selchk_${varStatus.count}"
 							value="N" onclick="checkBox(this);" /></td>
 						<td><input type="hidden" name="T01_ID_${varStatus.count}"
-							value="${Item.T01_ID}" /> <input type="text"
-							name="T01_NAME_${varStatus.count}" value="${Item.T01_NAME}" /></td>
+							value="${Item.T01_ID}" />
+							<input type="text" name="T01_NAME_${varStatus.count}" value="${Item.T01_NAME}" /></td>
 						<td><input type="number" name="T01_STORE_${varStatus.count}"
 							value="${Item.T01_STORE}" /></td>
 						<td><input type="number" name="T01_PRICE_${varStatus.count}"
 							value="${Item.T01_PRICE}" /></td>
-						<td><label for="T01_PIC_${varStatus.count}"> <span
-								id="text${varStatus.count}"> <c:choose>
-										<c:when test="${Item.T01_PICNAME!=''}">${Item.T01_PICNAME}</c:when>
-										<c:otherwise>未選擇任何檔案</c:otherwise>
-									</c:choose>
+						<td><label for="T01_PIC_${varStatus.count}"> 
+							<span id="text${varStatus.count}"> 
+							<c:choose>
+								<c:when test="${Item.T01_PICNAME!=''}">${Item.T01_PICNAME}</c:when>
+								<c:otherwise>未選擇任何檔案</c:otherwise>
+							</c:choose>
 							</span>
-						</label> <input type="file" onchange="fileChange(this);"
-							id="T01_PIC_${varStatus.count}" name="T01_PIC_${varStatus.count}"
-							style="display: none" /> <input type="hidden"
-							value="${Item.T01_PICNAME}" name="T01_PICNAME_${varStatus.count}">
+							</label> 
+							<input type="file" onchange="fileChange(this);" id="T01_PIC_${varStatus.count}" name="T01_PIC_${varStatus.count}"
+							style="display: none" /> 
+							<input type="hidden" value="${Item.T01_PICNAME}" name="T01_PICNAME_${varStatus.count}">
 						</td>
-
+						<td onclick="Cmentcli(this);" class="comment">
+							<span>${Item.T01_COMMENT}</span>
+							<input type="hidden" name="T01_COMMENT_${varStatus.count}" value="${Item.T01_COMMENT}" />
+						</td>
 						<c:if test="${varStatus.last}">
 							<input type="hidden" name="listCount" value="${varStatus.count}">
 						</c:if>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			<div align="center" class="row">
 				<div class="input-group col-sm-12 " >
@@ -176,7 +207,7 @@
         			<input type="number" class="form-control" name="store" />
         		
         			<span class="input-group-text">檔案：</span>
-        			<input type="file" class="form-control" name="file" />
+        			<input type="file" class="form-control" name="file" />	
         			</div>
   					<textarea class="form-control" rows="5" name="comment" placeholder="Comment..."></textarea>
       			</div>
@@ -187,6 +218,7 @@
       			<span class="input-group col-sm-1">
       				<button type="button" class="btn btn-primary" onclick="goInsert()">新增</button>
       			</span>
+			</div>
 			</div>
 		</form>
 	</div>

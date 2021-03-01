@@ -11,11 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,12 +62,13 @@ public class HelloController {
 		String name = request.getParameter("name");
 		String price = request.getParameter("price");
 		String store = request.getParameter("store");
-		Object[] parasT01 = new String[]{seqnoT01, name, price, store, part.getSubmittedFileName()};
-		Object[] parasT02 = new String[]{seqnoT02, seqnoT01, price, store, part.getSubmittedFileName(), name};
-		String sql = " INSERT INTO MT01 VALUES (?,?,?,?,?) ";
+		String comment = request.getParameter("comment");
+		Object[] parasT01 = new String[]{seqnoT01, name, price, store, part.getSubmittedFileName(), comment};
+		Object[] parasT02 = new String[]{seqnoT02, seqnoT01, price, store, part.getSubmittedFileName(), name, comment};
+		String sql = " INSERT INTO MT01 VALUES (?,?,?,?,?,?) ";
 		jdbcTemplate.update(sql, parasT01);
 		System.out.println(sql);
-		String sqlT2 =" INSERT INTO MT02 VALUES (?,?,?,?,?,?) ";
+		String sqlT2 =" INSERT INTO MT02 VALUES (?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(sqlT2, parasT02);
 		System.out.println(sqlT2);
 		uploadPic(part);
@@ -88,16 +91,19 @@ public class HelloController {
 				String price = request.getParameter("T01_PRICE_" + i);
 				String store = request.getParameter("T01_STORE_" + i);
 				String picName = request.getParameter("T01_PICNAME_" + i);
+				String comment = request.getParameter("T01_COMMENT_" + i);
 				Part part = request.getPart("T01_PIC_" + i);
-				Object[] parasT01 = new String[]{name, price, store, picName, id};
-				Object[] parasT02 = new String[]{seqnoM2, id, price, store, picName, name};
-				String sqlT1 = " UPDATE MT01 SET T01_NAME=?, T01_PRICE=?, T01_STORE=?, T01_PICNAME=? WHERE T01_ID=? ";
+				
+				Object[] parasT01 = new String[]{name, price, store, picName, comment, id};
+				Object[] parasT02 = new String[]{seqnoM2, id, price, store, picName, name, comment};
+				String sqlT1 = " UPDATE MT01 SET T01_NAME=?, T01_PRICE=?, T01_STORE=?, T01_PICNAME=?, T01_COMMENT=? WHERE T01_ID=? ";
 				jdbcTemplate.update(sqlT1, parasT01);
 				System.out.println(sqlT1);
-				String sqlT2 =" INSERT INTO MT02 VALUES (?,?,?,?,?,?) ";
+				String sqlT2 =" INSERT INTO MT02 VALUES (?,?,?,?,?,?,?) ";
 				jdbcTemplate.update(sqlT2, parasT02);
 				System.out.println(sqlT2);
 				uploadPic(part);
+				
  			}
 		}
 		ModelAndView mView = findAll();
@@ -150,10 +156,17 @@ public class HelloController {
 		String sqlT02 = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID ";
 		System.out.println(sqlT02);
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlT02);
-		String sqlT01 = " SELECT T01_PICNAME FROM MT01 WHERE T01_ID = '"+ t01id +"' ";
+		String sqlT01 = " SELECT T01_PICNAME, T01_COMMENT FROM MT01 WHERE T01_ID = ? ";
+		SqlRowSet result = jdbcTemplate.queryForRowSet(sqlT01, t01id);
 		System.out.println(sqlT01);
-		String t01_picName = (String) jdbcTemplate.queryForObject(sqlT01, String.class);
-		mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
+		
+		while (result.next()) {
+			String t01_picName = result.getString("T01_PICNAME");
+			String t01_comment = result.getString("T01_COMMENT");
+			mView.addObject("T01_COMMENT", t01_comment);
+			mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
+		}
+		
 		mView.addObject("list", list);
 		mView.setViewName("detail");
 		return mView;
