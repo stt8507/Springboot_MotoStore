@@ -32,13 +32,20 @@ public class HelloController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@RequestMapping("/")
+	@RequestMapping("/index")
 	public ModelAndView findAll() {
 		ModelAndView mView = new ModelAndView();
 		String sql = " SELECT * FROM MT01 ";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		mView.addObject("list", list);
 		mView.setViewName("index");
+		return mView;
+	}
+	
+	@RequestMapping("/")
+	public ModelAndView sign() {
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("sign");
 		return mView;
 	}
 

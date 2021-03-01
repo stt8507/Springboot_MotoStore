@@ -99,14 +99,14 @@
 		<div class="collapse navbar-collapse" id="navContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="#">首頁</a>
+					<a class="nav-link" href="/">首頁</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">關於</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">登出</a></li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">產品資料</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/">修改資料</a> 
+						<a class="dropdown-item" href="/index">修改資料</a> 
 						<a class="dropdown-item" href="/show">產品總覽</a>
 					</div>
 				</li>

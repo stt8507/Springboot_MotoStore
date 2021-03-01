@@ -30,14 +30,14 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">首頁</a>
+				<li class="nav-item active"><a class="nav-link" href="/">首頁</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">關於</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">登出</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">產品資料</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/">修改資料</a> <a
+						<a class="dropdown-item" href="/index">修改資料</a> <a
 							class="dropdown-item" href="/show">產品總覽</a>
 					</div></li>
 			</ul>
@@ -52,9 +52,8 @@
 		<form name="index" method="post" action="/">
 			<h1 align="center">Show Detail</h1>
 			<div class="container">
-    			<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%"> 
-    			<br/>
-    			<p align="center" style="font-size: 25px">${T01_COMMENT}</p>
+				<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%">
+				<div align="center" style="font-size: 25px; word-wrap: break-word; word-break:normal;">${T01_COMMENT}</div>
 			</div>
 			
 			<div class="container">
