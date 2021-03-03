@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sample.Model.PagePaginationObj;
 import com.sample.Util.ImageUtils;
 
 @Controller
@@ -31,13 +32,47 @@ public class HelloController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	@RequestMapping("/index")
+	
+	
+	//初始搜尋頁面
 	public ModelAndView findAll() {
+		
 		ModelAndView mView = new ModelAndView();
-		String sql = " SELECT * FROM MT01 ";
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		StringBuffer sql = new StringBuffer(" SELECT * FROM MT01 ");
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql.toString());
+		PagePaginationObj ppObj = new PagePaginationObj(list.size(), 1);
+		
 		mView.addObject("list", list);
+		mView.addObject("ppObj", ppObj);
+		mView.setViewName("index");
+		return mView;
+	}
+	
+	@RequestMapping("/index")
+	public ModelAndView index(HttpServletRequest request) {
+		
+		ModelAndView mView = new ModelAndView();
+		StringBuffer sql = new StringBuffer();
+		String gotoPage = request.getParameter("gotoPage");
+		String totalRecord = request.getParameter("totalRecord");
+		
+		//初始搜尋頁面
+		if(gotoPage == null) {
+			return findAll();
+		}
+		//前往指定頁數
+		PagePaginationObj ppObj = new PagePaginationObj(Integer.parseInt(totalRecord), Integer.parseInt(gotoPage));
+		Integer startRecord = ppObj.getRecordPerPage() * (Integer.parseInt(gotoPage)-1) + 1;
+		Integer endRecord = startRecord + ppObj.getRecordPerPage() - 1;
+		ppObj.setCurrentPage(Integer.parseInt(gotoPage));
+		sql.append(" SELECT TB.* FROM ");
+		sql.append(" (SELECT TA.*, ROWNUM RN FROM( ");
+		sql.append(" SELECT * FROM MT01 ORDER BY T01_ID) TA) TB ");
+		sql.append(" WHERE RN BETWEEN ? AND ? ");
+		Object[] parasT01 = new String[] {startRecord.toString(), endRecord.toString()};
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql.toString(), parasT01);
+		mView.addObject("list", list);
+		mView.addObject("ppObj", ppObj);
 		mView.setViewName("index");
 		return mView;
 	}
@@ -51,10 +86,13 @@ public class HelloController {
 
 	@RequestMapping("/search")
 	public ModelAndView findByName(HttpServletRequest request) {
+		String gotoPage = request.getParameter("gotoPage");
 		String name = request.getParameter("searchName");
 		ModelAndView mView = new ModelAndView();
-		String sql = " SELECT * FROM MT01 WHERE T01_NAME='" + name + "'";
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		StringBuffer sql = new StringBuffer(" SELECT * FROM MT01 WHERE T01_NAME='" + name + "' ");
+		
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql.toString());
+		PagePaginationObj ppObj = new PagePaginationObj(list.size(), 1);
 		mView.addObject("list", list);
 		mView.setViewName("index");
 		return mView;
@@ -160,7 +198,7 @@ public class HelloController {
 	public ModelAndView showDetail(HttpServletRequest request) {
 		String t01id = request.getParameter("T01_CHOSENID");
 		ModelAndView mView = new ModelAndView();
-		String sqlT02 = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID ";
+		String sqlT02 = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID DESC ";
 		System.out.println(sqlT02);
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlT02);
 		String sqlT01 = " SELECT T01_PICNAME, T01_COMMENT FROM MT01 WHERE T01_ID = ? ";

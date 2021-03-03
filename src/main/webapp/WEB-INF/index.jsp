@@ -74,6 +74,11 @@
 			$(objSpan).text(valAft);
 		}
 	}
+	function gotoPage(value){
+		$('[name=gotoPage]').val(value);
+		$('[name=index]').attr('action', '/index');
+		$('[name=index]').submit();
+	}
 	/*
 	function moveData(obj){
 		let store = $(obj).find('[name ^= T01_STORE]').val();
@@ -194,6 +199,21 @@
 				</c:forEach>
 				</tbody>
 			</table>
+			
+			<ul class="pagination">
+			<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage - 1) eq 0 ?1:(ppObj.currentPage - 1)})">Previous</a></li>
+			<c:forEach var="i" begin="1" end="${ppObj.totalPage > 10 ? 10:ppObj.totalPage}" varStatus="varStatus">
+			<c:choose>
+				<c:when test="${i == ppObj.currentPage}">
+					<li class="page-item active"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:when>
+				<c:otherwise><li class="page-item"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<li class="page-item"><a class="page-link" onclick="gotoPage(${((ppObj.currentPage%10) + ppObj.recordPerPage) gt (ppObj.totalPage) ? ppObj.totalPage: ((ppObj.currentPage%10) + ppObj.recordPerPage)})">...</a></li>
+			<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage + 1) gt (ppObj.totalPage) ? ppObj.totalPage: (ppObj.currentPage + 1)})">Next</a></li>
+			</ul>
+			
 			<div align="center" class="row">
 				<div class="input-group col-sm-12 " >
       				<div class="input-group-prepend">
@@ -220,6 +240,12 @@
       			</span>
 			</div>
 			</div>
+			<!-- Hidden Column -->
+			<input type="hidden" name="totalPage" value="${ppObj.totalPage}">
+			<input type="hidden" name="currentPage" value="${ppObj.currentPage}">
+			<input type="hidden" name="totalRecord"  value="${ppObj.totalRecord}">
+			<input type="hidden" name="recordPerPage" value="${ppObj.recordPerPage}">
+			<input type="hidden" name="gotoPage" value="${ppObj.gotoPage}">
 		</form>
 	</div>
 	<footer>
