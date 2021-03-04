@@ -75,6 +75,7 @@
 		}
 	}
 	function gotoPage(value){
+		
 		$('[name=gotoPage]').val(value);
 		$('[name=index]').attr('action', '/index');
 		$('[name=index]').submit();
@@ -146,6 +147,22 @@
 			
 			<br />
 			<div class="container">
+			<c:if test="${list!='[]' and list!=null}">
+				<ul class="pagination">
+				<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage - 1) eq 0 ?1:(ppObj.currentPage - 1)})">Previous</a></li>
+				<c:forEach var="i" begin="1" end="${ppObj.totalPage > 10 ? 10:ppObj.totalPage}" varStatus="varStatus">
+				<c:choose>
+					<c:when test="${i == ppObj.currentPage}">
+						<li class="page-item active"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:when>
+					<c:otherwise><li class="page-item"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:otherwise>
+				</c:choose>
+				</c:forEach>
+			
+				<li class="page-item"><a class="page-link" onclick="gotoPage(${((ppObj.currentPage%10) + ppObj.recordPerPage) gt (ppObj.totalPage) ? ppObj.totalPage: ((ppObj.currentPage%10) + ppObj.recordPerPage)})">...</a></li>
+				<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage + 1) gt (ppObj.totalPage) ? ppObj.totalPage: (ppObj.currentPage + 1)})">Next</a></li>
+				</ul>
+			</c:if>
+			
 			<table class="table table-bordered">
 				<thead>
 				<tr>
@@ -159,10 +176,9 @@
 				</tr>
 				</thead>
 				<tbody>
-				<c:if test="${list=='[]'}">
-					<tr>
-						<td>No data!
-						<td>
+				<c:if test="${(list=='[]') or list==null}">
+					<tr align="center">
+						<td colspan="6">No data!</td>
 					</tr>
 				</c:if>
 				<c:forEach items="${list}" var="Item" varStatus="varStatus">
@@ -200,19 +216,7 @@
 				</tbody>
 			</table>
 			
-			<ul class="pagination">
-			<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage - 1) eq 0 ?1:(ppObj.currentPage - 1)})">Previous</a></li>
-			<c:forEach var="i" begin="1" end="${ppObj.totalPage > 10 ? 10:ppObj.totalPage}" varStatus="varStatus">
-			<c:choose>
-				<c:when test="${i == ppObj.currentPage}">
-					<li class="page-item active"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:when>
-				<c:otherwise><li class="page-item"><a class="page-link" onclick="gotoPage(${i})">[${i}]</a></li></c:otherwise>
-				</c:choose>
-			</c:forEach>
 			
-			<li class="page-item"><a class="page-link" onclick="gotoPage(${((ppObj.currentPage%10) + ppObj.recordPerPage) gt (ppObj.totalPage) ? ppObj.totalPage: ((ppObj.currentPage%10) + ppObj.recordPerPage)})">...</a></li>
-			<li class="page-item"><a class="page-link" onclick="gotoPage(${(ppObj.currentPage + 1) gt (ppObj.totalPage) ? ppObj.totalPage: (ppObj.currentPage + 1)})">Next</a></li>
-			</ul>
 			
 			<div align="center" class="row">
 				<div class="input-group col-sm-12 " >
@@ -241,6 +245,7 @@
 			</div>
 			</div>
 			<!-- Hidden Column -->
+			<input type="hidden" name="nameForPage" value="${nameForPage}">
 			<input type="hidden" name="totalPage" value="${ppObj.totalPage}">
 			<input type="hidden" name="currentPage" value="${ppObj.currentPage}">
 			<input type="hidden" name="totalRecord"  value="${ppObj.totalRecord}">

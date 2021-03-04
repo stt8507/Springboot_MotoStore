@@ -12,11 +12,11 @@ public class PagePaginationObj {
 	
 	public PagePaginationObj(int totalReco, int gotoPage) {
 		this.totalRecord = totalReco;
-		this.currentPage = 1;
+		this.currentPage = gotoPage;
 		this.recordPerPage = 10;
 		this.gotoPage = gotoPage;
 		this.totalPage = totalReco / recordPerPage + 1;
-		this.startRecord = gotoPage * recordPerPage + 1;
+		this.startRecord = (gotoPage-1) * recordPerPage + 1;
 		this.endRecord = startRecord + recordPerPage - 1;
 	}
 	
