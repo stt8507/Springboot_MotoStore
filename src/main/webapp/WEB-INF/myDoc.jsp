@@ -12,41 +12,18 @@
 <!--Custom CSS-->
 <link rel="stylesheet" href="/css/stylesheet.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<title>產品介紹</title>
+<title>我的文件</title>
 <script>
+
 </script>
 </head>
 <body>
 	<jsp:include page="Nav.jsp"></jsp:include>
-	<form name="index" method="post" action="/">
-			<h1 align="center">Show Detail</h1>
-			<div class="container">
-				<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%">
-				<div align="center" style="font-size: 25px; word-wrap: break-word; word-break:normal;">${T01_COMMENT}</div>
-			</div>
-			
-			<div class="container">
-			<br>
-				<table align="center" class="table table-bordered">
-					<thead>
-						<tr>
-							<th>商品名</th>
-							<th>存貨</th>
-							<th>金額</th>
-							<th>檔案</th>
-						</tr>
-					</thead>
-					<c:forEach items="${list}" var="Item" varStatus="varStatus">
-						<tr>
-							<td>${Item.T02_NAME}</td>
-							<td>${Item.T02_STORE}</td>
-							<td>${Item.T02_PRICE}</td>
-							<td>${Item.T02_PICNAME}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</form>
+	<div class="container">
+		<h1>我的文件</h1>
+		<input type="file" name="newFile">
+	</div>
+	
 	<jsp:include page="footer.jsp"></jsp:include>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
