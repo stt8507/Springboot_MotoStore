@@ -2,13 +2,19 @@ package com.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sample.repository.WorkingRepository;
+
 
 @Controller
 public class WorkingController {
+	
+	@Autowired
+	WorkingRepository workingRepository;
 
 	@RequestMapping("/log")
 	public ModelAndView logList(HttpServletRequest request) {
@@ -34,11 +40,12 @@ public class WorkingController {
 		
 	}
 	
-	@RequestMapping("/NavAndFooter")
+	@RequestMapping("/addWork")
 	public ModelAndView NavAndFooter(HttpServletRequest request) {
 		ModelAndView mView = new ModelAndView();
-		mView.setViewName("NavAndFooter");
+		mView.setViewName("addWork");
 		return mView;
 		
 	}
+	
 }

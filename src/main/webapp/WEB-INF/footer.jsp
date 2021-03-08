@@ -20,7 +20,7 @@
 <body>
 	</div>
 	<footer class="footer">
-	<p>Copyright © WebDesigneer 網頁設計</p>
+	<p>Copyright © WebDesigner 網頁設計</p>
 	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

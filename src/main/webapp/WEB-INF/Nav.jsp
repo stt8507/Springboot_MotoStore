@@ -46,6 +46,7 @@
 						<a class="dropdown-item" href="/log">工作日誌</a> 
 						<a class="dropdown-item" href="/myDoc">我的文件</a>
 						<a class="dropdown-item" href="/toDoList">待辦清單</a> 
+						<a class="dropdown-item" href="/addWork">新增工作</a>
 					</div>
 				</li>
 			</ul>
