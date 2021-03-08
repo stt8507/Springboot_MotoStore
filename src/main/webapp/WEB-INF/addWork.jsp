@@ -12,6 +12,7 @@
 <!--Custom CSS-->
 <link rel="stylesheet" href="/css/stylesheet.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <title>新增工作</title>
 <script>
 function addType(){
@@ -33,23 +34,28 @@ function addType(){
 			<div class="col-sm-12 form-group"><input class="form-control" type="text" name="title" placeholder="請輸入工作標題"></div>
 		</div>
 		<div name="hasTag"></div>
-		<br>
 		<div class="row">
 			<div class="col-sm-12 form-group" id="typegroup">
 				<input class="form-control" type="text" name="type" placeholder="請輸入標籤" onblur="addType();">
 			</div>
 		</div>
+		<div id="summernote"><p>Hello Summernote</p></div>
 	</div>
 	</form>
 	 
 	<jsp:include page="footer.jsp"></jsp:include>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script>
+$(document).ready(function() {
+    $('#summernote').summernote();
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </body>
 </html>
