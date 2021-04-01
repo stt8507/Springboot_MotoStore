@@ -21,7 +21,10 @@
 	<jsp:include page="Nav.jsp"></jsp:include>
 	<div class="container">
 		<h1>我的文件</h1>
-		<input type="file" name="newFile">
+		<form action="/addNewDoc">
+			<input type="file" name="newFile">
+			<input type="submit" value="確認上傳">
+		</form>
 	</div>
 	
 	<jsp:include page="footer.jsp"></jsp:include>
