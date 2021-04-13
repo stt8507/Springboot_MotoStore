@@ -1,8 +1,13 @@
 package com.sample.Util;
 
-import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+
+import javax.servlet.http.Part;
 
 
 /**
@@ -16,24 +21,23 @@ public class FileUtils {
 	 * @param fileName 原始檔名
 	 * @return
 	 */
-	public static boolean upload(MultipartFile file, String path, String fileName) {
+	public static void upload(Part part, String path, String fileName) {
 		//使用原檔名
-		String realPath = path + "/" + fileName;
-		File dest = new File(realPath);
-		//判斷檔案父目錄是否存在
-		if (!dest.getParentFile().exists()) {
-			dest.getParentFile().mkdir();
-		}
+		String realPath = path + fileName;
 		try {
-			//儲存檔案
-			file.transferTo(dest);
-			return true;
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-			return false;
+			new File(realPath).createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+		}
+		System.out.println(realPath);
+		try (InputStream in = part.getInputStream(); OutputStream out = new FileOutputStream(realPath)) {
+			byte[] buffer = new byte[1024];
+			int length = -1;
+			while ((length = in.read(buffer)) != -1) {
+				out.write(buffer, 0, length);
+			}
+		} catch (IOException ex) {
+			throw new UncheckedIOException(ex);
 		}
 	}
 }

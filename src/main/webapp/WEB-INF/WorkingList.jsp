@@ -12,14 +12,36 @@
 <!--Custom CSS-->
 <link rel="stylesheet" href="/css/stylesheet.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<title>待辦清單</title>
+<title>工作清單</title>
 <script>
 </script>
 </head>
 <body>
 	<jsp:include page="Nav.jsp"></jsp:include>
 	<div class="container">
-		<h1>待辦清單</h1>
+		<h1>工作清單</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>工作標題</th>
+					<th>迫切性</th>
+					<th>負責人</th>
+					<th>截止日</th>
+					<th>作業狀態</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<c:forEach items="${list}" var="Item" varStatus="varStatus">
+					<tr>
+						<td>${Item.title}</td>
+						<td>${Item.urgency}</td>
+						<td>${Item.owner}</td>
+						<td>${Item.dday}</td>
+						<td>${Item.status}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 <!-- Optional JavaScript -->

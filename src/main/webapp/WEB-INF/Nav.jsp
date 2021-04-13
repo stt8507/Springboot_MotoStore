@@ -45,14 +45,15 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/log">工作日誌</a> 
 						<a class="dropdown-item" href="/myDoc">我的文件</a>
-						<a class="dropdown-item" href="/toDoList">待辦清單</a> 
+						<a class="dropdown-item" href="/WorkingList">工作清單</a> 
 						<a class="dropdown-item" href="/addWork">新增工作</a>
 					</div>
 				</li>
 			</ul>
 
-			<form class="form-inline" action="/search">
-				<input type="text" name="name" class="form-control mr-1" placeholder="輸入關鍵字" />
+			<form class="form-inline" action="/searchForAll">
+				<input type="hidden" name="sourcePage" value="${sourcePage}">
+				<input type="text" name="searchNameForAll" class="form-control mr-1" placeholder="輸入關鍵字" />
 				<button class="btn btn-outlight" type="submit">搜尋</button>
 			</form>
 		</div>

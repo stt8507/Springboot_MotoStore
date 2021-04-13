@@ -1,6 +1,8 @@
 package com.sample.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sample.Model.PagePaginationObj;
 import com.sample.service.HelloService;
+import com.sample.service.WorkingService;
 
 @Controller
 public class HelloController {
@@ -23,6 +26,8 @@ public class HelloController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	@Autowired
 	private HelloService helloService;
+	@Autowired
+	private WorkingService workingService;
 	
 	@RequestMapping("/index")
 	public ModelAndView index(HttpServletRequest request) {
@@ -34,7 +39,9 @@ public class HelloController {
 		
 		//初始搜尋頁面
 		if(gotoPage == null) {
-			return new ModelAndView("index");
+			mView.setViewName("index");
+			mView.addObject("sourcePage","index");
+			return mView;
 		}
 		
 		String name = request.getParameter("nameForPage");
@@ -44,6 +51,7 @@ public class HelloController {
 		mView.addObject("nameForPage", name);
 		mView.addObject("list", list);
 		mView.addObject("ppObj", ppObj);
+		mView.addObject("sourcePage","index");
 		mView.setViewName("index");
 		return mView;
 	}
@@ -61,9 +69,9 @@ public class HelloController {
 		ModelAndView mView = new ModelAndView();
 		List<Map<String, Object>> list = helloService.search(new Object[] {name});
 		PagePaginationObj ppObj = new PagePaginationObj(list.size(), 1);
-		mView.addObject("nameForPage", name);
 		mView.addObject("list", list);
 		mView.addObject("ppObj", ppObj);
+		mView.addObject("sourcePage","index");
 		mView.setViewName("index");
 		return mView;
 	}
@@ -82,6 +90,7 @@ public class HelloController {
 		Object[] parasT02 = new String[]{seqnoT02, seqnoT01, price, store, part.getSubmittedFileName(), name, comment};
 		helloService.insertData(parasT01, parasT02, part);
 		ModelAndView mView = new ModelAndView();
+		mView.addObject("sourcePage","index");
 		mView.setViewName("index");
 		return mView;
 	}
@@ -111,6 +120,7 @@ public class HelloController {
  			}
 		}
 		ModelAndView mView = new ModelAndView();
+		mView.addObject("sourcePage","index");
 		mView.setViewName("index");
 		return mView;
 	}
@@ -132,6 +142,7 @@ public class HelloController {
 
 		}
 		ModelAndView mView = new ModelAndView("index");
+		mView.addObject("sourcePage","index");
 		return mView;
 	}
 
@@ -140,6 +151,7 @@ public class HelloController {
 		ModelAndView mView = new ModelAndView();
 		List<Map<String, Object>> list = helloService.showAll();
 		mView.addObject("list", list);
+		mView.addObject("sourcePage","index");
 		mView.setViewName("show");
 		return mView;
 	}
@@ -149,7 +161,56 @@ public class HelloController {
 		String t01id = request.getParameter("T01_CHOSENID");
 		ModelAndView mView = new ModelAndView();
 		mView = helloService.showDetail(t01id);
+		mView.addObject("sourcePage","index");
 		mView.setViewName("detail");
+		return mView;
+	}
+	
+	@RequestMapping("/searchForAll")
+	public ModelAndView searchForAll(HttpServletRequest request) {
+		String name = request.getParameter("searchNameForAll");
+		String sourcePage = request.getParameter("sourcePage");
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName(sourcePage);
+		mView.addObject("sourcePage",sourcePage);
+		
+		if(sourcePage.equals("index")) {
+			List<Map<String, Object>> list = helloService.search(new Object[] {name});
+			PagePaginationObj ppObj = new PagePaginationObj(list.size(), 1);
+			mView.addObject("list", list);
+			mView.addObject("ppObj", ppObj);
+			mView.setViewName("index");
+		}else if (sourcePage.equals("work")) {
+			mView.addObject("sourcePage", "work");
+			mView.setViewName("log");
+			// 全部的工作狀態
+			List<String> status = workingService.getWorkingStatus();
+			mView.addObject("status",status);
+			// 放上搜尋目標的工作狀態
+			List<Object> workName = new ArrayList<Object>();
+			workName.add(name);
+			List<Map<String, Object>> list2 = workingService.selectJob(workName);
+			for(Map<String, Object> data:list2) {
+				List<String> tags = Arrays.asList(data.get("WT01_TYPE").toString().split(","));
+				mView.addObject("content",data.get("WT01_CONTENT"));
+				mView.addObject("title",data.get("WT01_TITLE"));
+				mView.addObject("cdate",data.get("WT01_CDATE"));
+				mView.addObject("selectedStatus",data.get("WT01_STATUS"));
+				mView.addObject("tags",tags);
+				mView.addObject("logID",data.get("WT01_ID"));
+			}
+		}else if (sourcePage.equals("doc")) {
+			mView.addObject("sourcePage", "doc");
+			mView.setViewName("myDoc");
+			String queryName = "%" + name + "%";
+			List<Object> list = new ArrayList<Object>();
+			list.add(queryName);
+			String[] doc = workingService.getFile(list);
+			if(doc.length != 0) {
+				mView.addObject("fileName",doc[0]);
+				mView.addObject("fileType",doc[1]);
+			}
+		}
 		return mView;
 	}
 }

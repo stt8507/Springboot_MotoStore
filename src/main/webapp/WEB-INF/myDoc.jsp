@@ -21,10 +21,29 @@
 	<jsp:include page="Nav.jsp"></jsp:include>
 	<div class="container">
 		<h1>我的文件</h1>
-		<form action="/addNewDoc">
+		<div class="row justify-content-end">
+		<span class="col-sm-7">${errorMsg}</span>
+		<div class="col-sm-5">
+		<form action="/addNewDoc" method="post" enctype="multipart/form-data">
 			<input type="file" name="newFile">
 			<input type="submit" value="確認上傳">
 		</form>
+		</div>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>檔名</th>
+					<th>類型</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${fileName}</td>
+					<td>${fileType}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	
 	<jsp:include page="footer.jsp"></jsp:include>

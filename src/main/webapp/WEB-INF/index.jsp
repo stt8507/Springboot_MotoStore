@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Bootstrap CSS -->
@@ -206,7 +205,6 @@ function gotoPage(value){
 			</div>
 			</div>
 			<!-- Hidden Column -->
-			<input type="hidden" name="nameForPage" value="${nameForPage}">
 			<input type="hidden" name="totalPage" value="${ppObj.totalPage}">
 			<input type="hidden" name="currentPage" value="${ppObj.currentPage}">
 			<input type="hidden" name="totalRecord"  value="${ppObj.totalRecord}">

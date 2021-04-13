@@ -22,20 +22,12 @@
 	<jsp:include page="Nav.jsp"></jsp:include>
 	
 	<div class="container">
-		<form action="/searchWorkname">
-		<div class="row">
-			<div class="col-sm-9"><h1>工作日誌</h1></div>
-			<div class="input-group mb-4 col-sm-3">
-				<input type="text" class="form-control" placeholder="工作名稱" name="workName">
-  				<div class="input-group-append">
-    				<button class="btn" type="submit">搜尋文章</button>
-  				</div>
-			</div>
-		</div>
-		</form>
+		<h1>工作日誌</h1>
 		<br>
-		<h1 align="center">${title}</h1><br>
-		<fmt:formatDate value="${cdate}" pattern="yyyy-MM-dd"/> ${status} 
+	<h1 align="center">${title}</h1><br>
+	<div class="row">
+		<div class="col-sm-9 mt-3">
+		<fmt:formatDate value="${cdate}" pattern="yyyy-MM-dd"/> ${SelectedStatus} 
 		<c:forEach items="${tags}" var="tag" varStatus="varStatus">
 		<c:choose>
 			<c:when test='${varStatus.index %3 == 0}'><span class="badge badge-primary">${tag}</span> </c:when>
@@ -43,8 +35,27 @@
 			<c:otherwise><span class="badge badge-success">${tag}</span> </c:otherwise>
 		</c:choose>
 		</c:forEach>
+		</div>
+		<c:if test="${status != null}">
+		<form class="form-inline col-sm-3" action="/changeWorkStatus">
+		<input type="hidden" name="logTitle" value="${logID}">
+		<div class="form-group input-group-prepend">
+			<span class="input-group-text">作業狀態</span>
+  			<select class="form-control" name="WorkStatus">
+  			<c:forEach items="${status}" var="Item" varStatus="varStatus">
+  			<c:choose>
+  				<c:when test="${Item eq selectedStatus}"><option selected="selected" value="${Item}">${Item}</option></c:when>
+  				<c:otherwise><option value="${Item}">${Item}</option></c:otherwise>
+  			</c:choose>
+  			</c:forEach>
+  			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">變更</button>
+		</form>
+		</c:if>
+		</div>
 		<hr/>
-		<p>${content}</p>
+		${content}
 	</div>
 	
 	<jsp:include page="footer.jsp"></jsp:include>

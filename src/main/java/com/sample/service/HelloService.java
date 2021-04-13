@@ -27,7 +27,39 @@ public class HelloService {
 
 	@Autowired
 	HelloRepository helloRepository;
-
+	
+	public List<Map<String, Object>> search(Object[] parasT01) {
+		List<Map<String, Object>> list = helloRepository.search((String)parasT01[0]);
+		return list;	
+	}
+	
+	public List<Map<String, Object>> searchByIndex(Object[] parasT01, PagePaginationObj ppObj) {
+		List<Map<String, Object>> list = helloRepository.searchByname((String)parasT01[0], ppObj);
+		return list;	
+	}
+	
+	public List<Map<String, Object>> showAll(){
+		List<Map<String, Object>> list = helloRepository.findAll();
+		return list;
+	}
+	
+	public ModelAndView showDetail(String t01id){
+		ModelAndView mView = new ModelAndView();
+		List<Map<String, Object>> list = helloRepository.searchT02ID(t01id);
+		SqlRowSet result = helloRepository.findT01picAndT01Comm(t01id);
+		if(result != null) {
+			while (result.next()) {
+				String t01_picName = result.getString("T01_PICNAME");
+				String t01_comment = result.getString("T01_COMMENT");
+				mView.addObject("T01_COMMENT", t01_comment);
+				mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
+			}
+		}
+		mView.addObject("list", list);
+		return mView;
+		
+	}
+	
 	public void insertData(Object[] parasT01, Object[] parasT02, Part part) {
 		helloRepository.insertMT01Data(parasT01);
 		helloRepository.insertMT02Data(parasT02);
@@ -48,22 +80,12 @@ public class HelloService {
 		}
 	}
 	
-	public List<Map<String, Object>> search(Object[] parasT01) {
-		List<Map<String, Object>> list = helloRepository.search((String)parasT01[0]);
-		return list;	
-	}
-	
-	public List<Map<String, Object>> searchByIndex(Object[] parasT01, PagePaginationObj ppObj) {
-		List<Map<String, Object>> list = helloRepository.searchByname((String)parasT01[0], ppObj);
-		return list;	
-	}
-
 	public void deleteData(Object[] parasT01) {
-		int recordNum = helloRepository.selectRepeatMT01Data(parasT01);
+		Integer recordNum = helloRepository.selectRepeatMT01Data(parasT01);
 		helloRepository.selectRepeatMT01Data(parasT01);
 		helloRepository.deleteMT01Data((String) parasT01[0]);
 
-		if (recordNum == 0) {
+		if (recordNum.intValue() == 0) {
 			try {
 				delePic((String) parasT01[1]);
 			} catch (Exception e) {
@@ -71,26 +93,6 @@ public class HelloService {
 			}
 		}
 
-	}
-	
-	public List<Map<String, Object>> showAll(){
-		List<Map<String, Object>> list = helloRepository.findAll();
-		return list;
-	}
-	
-	public ModelAndView showDetail(String t01id){
-		ModelAndView mView = new ModelAndView();
-		List<Map<String, Object>> list = helloRepository.searchT02ID(t01id);
-		SqlRowSet result = helloRepository.findT01picAndT01Comm(t01id);
-		while (result.next()) {
-			String t01_picName = result.getString("T01_PICNAME");
-			String t01_comment = result.getString("T01_COMMENT");
-			mView.addObject("T01_COMMENT", t01_comment);
-			mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
-		}
-		mView.addObject("list", list);
-		return mView;
-		
 	}
 
 	public void uploadPic(Part part) throws Exception {

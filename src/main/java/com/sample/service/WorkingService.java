@@ -27,4 +27,24 @@ public class WorkingService {
 		List<Map<String, Object>> listBack = workingRepository.selectJob(list);
 		return listBack;
 	}
+	
+	public List<String> getWorkingStatus() {
+		List<String> list = workingRepository.getWorkingStatus();
+		return list;
+	}
+	
+	public String[] getFile(List<Object> list) {
+		List<Map<String, Object>> list2 = workingRepository.getFile(list);
+		String fileName = list2 == null ? "" :(String)list2.get(0).get("WT02_FILENAME");
+		String[] fileStatus = fileName.split("\\.");
+		return fileStatus;
+	}
+	
+	public void updateWorkingStatus(List<Object> list) {
+		workingRepository.updateWorkingStatus(list);
+	}
+
+	public void addNewDoc(String fileName) {
+		workingRepository.addNewDoc(fileName);
+	}
 }
