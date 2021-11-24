@@ -17,13 +17,13 @@ public class HelloRepository {
 	private JdbcTemplate jdbcTemplate;
 	
 	public SqlRowSet findT01picAndT01Comm(String t01id) {
-		String sqlT01 = " SELECT T01_PICNAME, T01_COMMENT FROM MT01 WHERE T01_ID = ? ";
+		String sqlT01 = " SELECT MT01_PICNAME, MT01_COMMENT FROM MT01 WHERE MT01_ID = ? ";
 		SqlRowSet result = jdbcTemplate.queryForRowSet(sqlT01, t01id);
 		return result;
 		
 	}
 	public List<Map<String, Object>> searchT02ID(String t01id) {
-		String sqlT02 = " SELECT * FROM MT02 WHERE T02_T01ID = '"+ t01id +"' ORDER BY T02_ID DESC ";
+		String sqlT02 = " SELECT * FROM MT02 WHERE MT02_T01ID = '"+ t01id +"' ORDER BY MT02_ID DESC ";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlT02);
 		return list;
 		
@@ -32,7 +32,7 @@ public class HelloRepository {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT TB.* FROM ");
 		sql.append(" (SELECT TA.*, ROWNUM RN FROM( ");
-		sql.append(" SELECT * FROM MT01 WHERE T01_NAME='" + name + "' ORDER BY T01_ID) TA) TB ");
+		sql.append(" SELECT * FROM MT01 WHERE MT01_NAME='" + name + "' ORDER BY MT01_ID) TA) TB ");
 		sql.append(" WHERE RN BETWEEN " + ppObj.getStartRecord() + " AND "+ ppObj.getEndRecord());
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql.toString());
 		return list;
@@ -43,7 +43,7 @@ public class HelloRepository {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT TB.* FROM ");
 		sql.append(" (SELECT TA.*, ROWNUM RN FROM( ");
-		sql.append(" SELECT * FROM MT01 WHERE T01_NAME='" + name + "' ORDER BY T01_ID) TA) TB ");
+		sql.append(" SELECT * FROM MT01 WHERE MT01_NAME='" + name + "' ORDER BY MT01_ID) TA) TB ");
 		sql.append(" WHERE RN BETWEEN 1 AND 10 ");
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql.toString());
 		return list;
@@ -67,19 +67,19 @@ public class HelloRepository {
 	}
 	
 	public void updateMT01Data(Object[] parasT01) {
-		String sqlT1 = " UPDATE MT01 SET T01_NAME=?, T01_PRICE=?, T01_STORE=?, T01_PICNAME=?, T01_COMMENT=? WHERE T01_ID=? ";
+		String sqlT1 = " UPDATE MT01 SET MT01_NAME=?, MT01_PRICE=?, MT01_STORE=?, MT01_PICNAME=?, MT01_COMMENT=? WHERE MT01_ID=? ";
 		jdbcTemplate.update(sqlT1, parasT01);
 	}
 
 	public int selectRepeatMT01Data(Object[] parasT01) {
 		String sqlRepeatPicName = " SELECT COUNT(*) AS CNT FROM MT01 " +
-				" WHERE T01_ID <> '"+ parasT01[0] + "' AND T01_PICNAME = '"+ parasT01[1] +"' ";
+				" WHERE MT01_ID <> '"+ parasT01[0] + "' AND MT01_PICNAME = '"+ parasT01[1] +"' ";
 		Integer reResult = jdbcTemplate.queryForObject(sqlRepeatPicName, Integer.class);
 		return reResult;
 	}
 	
 	public void deleteMT01Data(String id) {
-		String sql = " DELETE FROM MT01 WHERE T01_ID='" + id + "' ";
+		String sql = " DELETE FROM MT01 WHERE MT01_ID='" + id + "' ";
 		jdbcTemplate.update(sql);
 	}
 	

@@ -49,10 +49,10 @@ public class HelloService {
 		SqlRowSet result = helloRepository.findT01picAndT01Comm(t01id);
 		if(result != null) {
 			while (result.next()) {
-				String t01_picName = result.getString("T01_PICNAME");
-				String t01_comment = result.getString("T01_COMMENT");
-				mView.addObject("T01_COMMENT", t01_comment);
-				mView.addObject("T01_PICNAME", "Ori_"+t01_picName);
+				String t01_picName = result.getString("MT01_PICNAME");
+				String t01_comment = result.getString("MT01_COMMENT");
+				mView.addObject("MT01_COMMENT", t01_comment);
+				mView.addObject("MT01_PICNAME", "Ori_"+t01_picName);
 			}
 		}
 		mView.addObject("list", list);

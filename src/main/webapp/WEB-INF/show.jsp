@@ -29,15 +29,15 @@ function goDetail(obj) {
 				<div class="row">
 					<c:forEach items="${list}" var="Item" varStatus="varStatus">
 						<div class="card col-sm-3" onclick="goDetail(this);">
-							<input type="hidden" name="T01_ID" value="${Item.T01_ID}">
-							<img class="card-img-top" src="/image/${Item.T01_PICNAME}"
+							<input type="hidden" name="T01_ID" value="${Item.MT01_ID}">
+							<img class="card-img-top" src="/image/${Item.MT01_PICNAME}"
 								alt="Card image" style="width: 100%">
 							<div class="card-body">
-								<h4 class="card-title">${Item.T01_NAME}</h4>
+								<h4 class="card-title">${Item.MT01_NAME}</h4>
 
 								<p class="card-text">
-									品名：${Item.T01_NAME}<br /> 存貨：${Item.T01_STORE}<br />
-									金額：${Item.T01_PRICE}
+									品名：${Item.MT01_NAME}<br /> 存貨：${Item.MT01_STORE}<br />
+									金額：${Item.MT01_PRICE}
 								</p>
 							</div>
 						</div>

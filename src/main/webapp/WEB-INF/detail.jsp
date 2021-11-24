@@ -21,8 +21,8 @@
 	<form name="index" method="post" action="/">
 			<h1 align="center">Show Detail</h1>
 			<div class="container">
-				<img src="/image/${T01_PICNAME}" class="mx-auto d-block" style="width:50%">
-				<div align="center" style="font-size: 25px; word-wrap: break-word; word-break:normal;">${T01_COMMENT}</div>
+				<img src="/image/${MT01_PICNAME}" class="mx-auto d-block" style="width:50%">
+				<div align="center" style="font-size: 25px; word-wrap: break-word; word-break:normal;">${MT01_COMMENT}</div>
 			</div>
 			
 			<div class="container">
@@ -38,10 +38,10 @@
 					</thead>
 					<c:forEach items="${list}" var="Item" varStatus="varStatus">
 						<tr>
-							<td>${Item.T02_NAME}</td>
-							<td>${Item.T02_STORE}</td>
-							<td>${Item.T02_PRICE}</td>
-							<td>${Item.T02_PICNAME}</td>
+							<td>${Item.MT02_NAME}</td>
+							<td>${Item.MT02_STORE}</td>
+							<td>${Item.MT02_PRICE}</td>
+							<td>${Item.MT02_PICNAME}</td>
 						</tr>
 					</c:forEach>
 				</table>

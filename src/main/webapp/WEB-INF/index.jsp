@@ -146,27 +146,27 @@ function gotoPage(value){
 						<td><input type="checkbox" name="selchk_${varStatus.count}"
 							value="N" onclick="checkBox(this);" /></td>
 						<td><input type="hidden" name="T01_ID_${varStatus.count}"
-							value="${Item.T01_ID}" />
-							<input type="text" name="T01_NAME_${varStatus.count}" value="${Item.T01_NAME}" /></td>
+							value="${Item.MT01_ID}" />
+							<input type="text" name="T01_NAME_${varStatus.count}" value="${Item.MT01_NAME}" /></td>
 						<td><input type="number" name="T01_STORE_${varStatus.count}"
-							value="${Item.T01_STORE}" /></td>
+							value="${Item.MT01_STORE}" /></td>
 						<td><input type="number" name="T01_PRICE_${varStatus.count}"
-							value="${Item.T01_PRICE}" /></td>
+							value="${Item.MT01_PRICE}" /></td>
 						<td><label for="T01_PIC_${varStatus.count}"> 
 							<span id="text${varStatus.count}"> 
 							<c:choose>
-								<c:when test="${Item.T01_PICNAME!=''}">${Item.T01_PICNAME}</c:when>
+								<c:when test="${Item.MT01_PICNAME!=''}">${Item.MT01_PICNAME}</c:when>
 								<c:otherwise>未選擇任何檔案</c:otherwise>
 							</c:choose>
 							</span>
 							</label> 
 							<input type="file" onchange="fileChange(this);" id="T01_PIC_${varStatus.count}" name="T01_PIC_${varStatus.count}"
 							style="display: none" /> 
-							<input type="hidden" value="${Item.T01_PICNAME}" name="T01_PICNAME_${varStatus.count}">
+							<input type="hidden" value="${Item.MT01_PICNAME}" name="T01_PICNAME_${varStatus.count}">
 						</td>
 						<td onclick="Cmentcli(this);" class="comment">
-							<span>${Item.T01_COMMENT}</span>
-							<input type="hidden" name="T01_COMMENT_${varStatus.count}" value="${Item.T01_COMMENT}" />
+							<span>${Item.MT01_COMMENT}</span>
+							<input type="hidden" name="T01_COMMENT_${varStatus.count}" value="${Item.MT01_COMMENT}" />
 						</td>
 						<c:if test="${varStatus.last}">
 							<input type="hidden" name="listCount" value="${varStatus.count}">
